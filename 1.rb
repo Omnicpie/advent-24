@@ -4,8 +4,8 @@ def createArrays
 
   File.foreach("./inputs/1.txt") do |line| 
     numbers = line.split("   ")
-    group1.push(numbers[0])
-    group2.push(numbers[1])
+    group1.push(numbers[0].to_i)
+    group2.push(numbers[1].to_i)
   end
 
   [group1, group2]
@@ -26,8 +26,22 @@ set1.sort!
 set2.sort!
 
 diffs = Array.new
+counts = Array.new
 
-set2.each_with_index {|val, index| diffs.push(remove_sign(val.to_i - set1[index].to_i)) }
-puts "Answer: #{diffs.reduce(:+)}"
+set1.each_with_index do |val, index| 
+  diffs.push(remove_sign(val - set2[index]))
+  counter = set2.dup
+  x = counter.inject(0) do |sum, n|
+    if n === val 
+      sum + 1
+    else
+      sum
+    end
+  end
+  counts.push(x * val)
+end
 
+puts "[PART 1] Answer: #{diffs.reduce(:+)}"
+
+puts "[PART 2] Answer: #{counts.reduce(:+)}"
 
