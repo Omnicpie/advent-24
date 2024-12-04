@@ -51,6 +51,34 @@ def search(x, y, letter, directionality)
   end
 end
 
+def x_search(x, y)
+  internal_count = 0
+
+  top_l_char = x != 0 && y != 0 ? INPUT[x - 1][y - 1] : nil 
+  top_r_char = x != 0 && y != INPUT[0].length - 2 && y != INPUT[0].length - 1? INPUT[x - 1][y + 1] : nil 
+  bot_l_char = x != INPUT.length - 2 && x != INPUT.length - 1 && y != 0 ? INPUT[x + 1][y - 1] : nil 
+  bot_r_char = x != INPUT.length - 2 && x != INPUT.length - 1 && y != INPUT[0].length - 2 && y != INPUT[0].length - 1?  INPUT[x + 1][y + 1] : nil 
+
+
+  if top_l_char != nil && bot_r_char != nil
+    if top_l_char == "M" && bot_r_char == "S"
+      internal_count = internal_count + 1
+    elsif top_l_char == "S" && bot_r_char == "M"
+      internal_count = internal_count + 1
+    end
+  end
+
+  if bot_l_char != nil && top_r_char != nil
+    if bot_l_char == "M" && top_r_char == "S"
+      internal_count = internal_count + 1
+    elsif bot_l_char == "S" && top_r_char == "M"
+      internal_count = internal_count + 1
+    end
+  end
+
+  internal_count
+end
+
 
 File.foreach("inputs/4.txt") { |line|
 INPUT.push(line.chomp().chars())
@@ -65,5 +93,19 @@ INPUT.each_with_index do |line, line_idx|
   end
 end
 
+part_2_count = 0 
+
+INPUT.each_with_index do |line, line_idx|
+  line.each_with_index do |char, char_idx|
+    current_direction = nil
+    if char == 'A' 
+      if x_search(line_idx, char_idx) == 2
+        part_2_count = part_2_count + 1
+      end
+    end
+  end
+end
+
 
 puts "Found #{count} instances of XMAS"
+puts "Found #{part_2_count} instances of X-MAS"
