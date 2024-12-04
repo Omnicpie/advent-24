@@ -55,9 +55,9 @@ def x_search(x, y)
   internal_count = 0
 
   top_l_char = x != 0 && y != 0 ? INPUT[x - 1][y - 1] : nil 
-  top_r_char = x != 0 && y != INPUT[0].length - 2 && y != INPUT[0].length - 1? INPUT[x - 1][y + 1] : nil 
-  bot_l_char = x != INPUT.length - 2 && x != INPUT.length - 1 && y != 0 ? INPUT[x + 1][y - 1] : nil 
-  bot_r_char = x != INPUT.length - 2 && x != INPUT.length - 1 && y != INPUT[0].length - 2 && y != INPUT[0].length - 1?  INPUT[x + 1][y + 1] : nil 
+  top_r_char = x != 0 && y != INPUT[0].length - 1? INPUT[x - 1][y + 1] : nil 
+  bot_l_char = x != INPUT.length - 1 && y != 0 ? INPUT[x + 1][y - 1] : nil 
+  bot_r_char =  x != INPUT.length - 1 && y != INPUT[0].length - 1?  INPUT[x + 1][y + 1] : nil 
 
 
   if top_l_char != nil && bot_r_char != nil
